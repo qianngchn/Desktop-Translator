@@ -1,10 +1,12 @@
 ﻿# Desktop-Translator
 Yet Another Translator from Foreign Language to Chinese
 
-![Desktop Translator](https://raw.githubusercontent.com/qianngchn/Desktop-Translator/master/DesktopTranslator.jpg)\
+![Desktop Translator](https://raw.githubusercontent.com/qianngchn/Desktop-Translator/master/DesktopTranslator.jpg)
 
 ## Download
 Please download at <https://github.com/qianngchn/Desktop-Translator/releases>.
+
+Program requires Microsoft .Net Framework 4.5.2 or above to run successfully.
 
 ## Usage
 Program will automatically translate the text inside the clipboard.
