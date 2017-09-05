@@ -190,6 +190,7 @@
             this.Label.TabIndex = 1;
             this.Label.Text = "程序会自动翻译剪贴板内文本（Help：左侧图标，左键拖动窗口，右键设置菜单）";
             this.Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Label.Paint += new System.Windows.Forms.PaintEventHandler(this.Label_Paint);
             this.Label.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Label_MouseClick);
             // 
             // DTProc

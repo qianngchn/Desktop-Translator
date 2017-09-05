@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Net;
+using System.Globalization;
 
 namespace DTProc
 {
@@ -71,7 +69,7 @@ namespace DTProc
 
             if (!string.IsNullOrEmpty(str))
             {
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(str);
+                byte[] data = Encoding.UTF8.GetBytes(str);
 
                 for (int i = 0; i < data.Length; i++)
                     result.Append(@"%" + data[i].ToString("x2"));
@@ -90,7 +88,7 @@ namespace DTProc
                 try
                 {
                     for (int i = 1; i < data.Length; i++)
-                        result += (char)int.Parse(data[i], System.Globalization.NumberStyles.HexNumber);
+                        result += (char)int.Parse(data[i], NumberStyles.HexNumber);
                 }
                 catch
                 {

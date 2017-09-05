@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Runtime.InteropServices;
@@ -260,6 +258,24 @@ namespace DTProc
                     Label.Size = new Size(Label.Width, lastHeight);
                 }
             }
+        }
+
+        private void Label_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.Clear(Label.BackColor);
+            e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            StringFormat format = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+            GraphicsPath path = new GraphicsPath();
+            path.AddString(Label.Text, Label.Font.FontFamily, (int)Label.Font.Style, e.Graphics.DpiX * Label.Font.SizeInPoints / 75, e.ClipRectangle, format);
+            Pen pen = new Pen(Color.Blue);
+            Brush brush = new SolidBrush(Color.White);
+            e.Graphics.DrawPath(pen, path);
+            e.Graphics.FillPath(brush, path);
+            format.Dispose();
+            path.Dispose();
+            pen.Dispose();
+            brush.Dispose();
         }
 
         private void RightClickMenu_Translate_Auto_Click(object sender, EventArgs e)
