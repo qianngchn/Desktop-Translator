@@ -18,9 +18,9 @@ Right Click on the left icon to get more setup options.
 ## Translate API
 Now program only support Baidu Translate API.
 
-The built-in API-Key is just for personal debugging only and may exceed the limits so that it can not be used.
+The built-in API Key is just for personal debugging only and may exceed the limits so that it can not be used.
 
-So you need to apply for a API Key at <http://api.fanyi.baidu.com> for free to use. Then you can get the api key and modify the `Config.xml` to make the program to run successfully.
+So you need to apply for a API Key at <http://api.fanyi.baidu.com> for free to use. Then you can get the API Key and modify the `Config.xml` to make the program to run successfully.
 
 ## Build
 1. Clone the repo using git.
