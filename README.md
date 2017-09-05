@@ -1,6 +1,8 @@
 ﻿# Desktop-Translator
 Yet Another Translator from Foreign Language to Chinese
 
+![Desktop Translator](https://raw.githubusercontent.com/qianngchn/Desktop-Translator/master/DesktopTranslator.jpg)\
+
 ## Download
 Please download at <https://github.com/qianngchn/Desktop-Translator/releases>.
 
