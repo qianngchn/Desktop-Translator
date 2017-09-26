@@ -11,9 +11,7 @@ Program requires Microsoft .Net Framework 4.5.2 or above to run successfully.
 ## Usage
 Program will automatically translate the text inside the clipboard.
 
-You can drag the left icon to move the program window.
-
-Right Click on the left icon to get more setup options.
+You can drag the left icon to move the program window and right click on the left icon to get more setup options.
 
 ## Translate API
 Now program only support Baidu Translate API.

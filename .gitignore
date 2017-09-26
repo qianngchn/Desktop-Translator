@@ -1,6 +1,7 @@
-.vs/
+﻿.vs/
 obj/
 bin/
+*.suo
 *.obj
 *.exe
 Thumbs.db

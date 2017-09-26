@@ -182,7 +182,7 @@ namespace DTProc
                 }
             }
         }
-        
+
         private void RightClickMenu_TextSize_Small_Click(object sender, EventArgs e)
         {
             RightClickMenu_TextSize_Small.Checked = false;
@@ -239,7 +239,7 @@ namespace DTProc
             else
                 Label.Text = "文本区域已经到达最小";
         }
-        
+
         private void Label_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)

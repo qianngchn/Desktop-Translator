@@ -14,7 +14,7 @@ namespace DTProc
         {
             this.timeout = timeout;
         }
-        
+
         protected override WebRequest GetWebRequest(Uri address)
         {
             HttpWebRequest request = (HttpWebRequest)base.GetWebRequest(address);
@@ -102,9 +102,9 @@ namespace DTProc
         private static BaiduResult GetBaiduResultFromJson(string json)
         {
             BaiduResult result = new BaiduResult();
-            string name = String.Empty;
-            string value = String.Empty;
-            StringBuilder temp = new StringBuilder();
+            string tmpKey = String.Empty;
+            string tmpValue = String.Empty;
+            StringBuilder tmpBuilder = new StringBuilder();
 
             for (int i = 0; i < json.Length; i++)
             {
@@ -116,7 +116,7 @@ namespace DTProc
                             int start = i + 1;
                             int length = 0;
                             while (json[i + 1] != '\"') { length++; i++; }
-                            name = json.Substring(start, length);
+                            tmpKey = json.Substring(start, length);
                         }
                         if (json[i - 1] != '\\' && json[i - 1] == ':')
                         {
@@ -133,7 +133,7 @@ namespace DTProc
                                 }
                             }
                             i++;
-                            value = json.Substring(start, length);
+                            tmpValue = json.Substring(start, length);
                         }
                         break;
 
@@ -145,7 +145,7 @@ namespace DTProc
                             int length = 0;
                             while (json[i + 1] != '\"') { length++; i++; }
                             i++;
-                            name = json.Substring(start, length);
+                            tmpKey = json.Substring(start, length);
                         }
                         break;
 
@@ -153,40 +153,40 @@ namespace DTProc
                         break;
                 }
 
-                if(!String.IsNullOrEmpty(name) && !String.IsNullOrEmpty(value))
+                if(!String.IsNullOrEmpty(tmpKey) && !String.IsNullOrEmpty(tmpValue))
                 {
-                    switch(name)
+                    switch(tmpKey)
                     {
                         case "error_code":
-                            result.Error_code = value;
+                            result.Error_code = tmpValue;
                             break;
 
                         case "error_msg":
-                            result.Error_msg = value;
+                            result.Error_msg = tmpValue;
                             break;
 
                         case "from":
-                            result.From = value;
+                            result.From = tmpValue;
                             break;
 
                         case "to":
-                            result.To = value;
+                            result.To = tmpValue;
                             break;
 
                         case "src":
                         case "dst":
-                            value = value.Replace("|", "");
-                            temp.Append(@value + @"|");
+                            tmpValue = tmpValue.Replace("|", "");
+                            tmpBuilder.Append(@tmpValue + @"|");
                             break;
 
                         default:
                             break;
                     }
-                    name = String.Empty;
-                    value = String.Empty;
+                    tmpKey = String.Empty;
+                    tmpValue = String.Empty;
                 }
             }
-            string[] tmp = temp.ToString().Split('|');
+            string[] tmp = tmpBuilder.ToString().Split('|');
             result.Trans_result = new Translator[tmp.Length / 2];
             for (int i = 0; i < tmp.Length / 2; i++)
                 result.Trans_result[i] = new Translator() { Src = tmp[2 * i], Dst = tmp[2 * i + 1] };
