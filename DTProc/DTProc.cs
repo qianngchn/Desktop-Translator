@@ -116,6 +116,7 @@ namespace DTProc
                 px = formOffset.X - pt.X;
                 py = formOffset.Y - pt.Y;
                 Location = new Point(formLocation.X - px, formLocation.Y - py);
+                Refresh();
             }
         }
 
@@ -145,7 +146,7 @@ namespace DTProc
                     DwmIsCompositionEnabled(ref flag);
                     if (flag > 0)
                     {
-                        MARGINS margins = new MARGINS() { Left = 0, Right = Label.Size.Width, Top = 0, Bottom = 0 };
+                        MARGINS margins = new MARGINS() { Left = 0, Right = Label.Width, Top = 0, Bottom = 0 };
                         DwmExtendFrameIntoClientArea(Handle, ref margins);
                     }
                     else
@@ -213,6 +214,18 @@ namespace DTProc
         private const int minHeight = 64;
         private const int maxHeight = 8 * minHeight;
         private int lastHeight = minHeight;
+        private void CheckResetLocation()
+        {
+            if (Location.X < 0)
+                Location = new Point(0, Location.Y);
+            if (Location.X > Screen.PrimaryScreen.Bounds.Width - Width)
+                Location = new Point(Screen.PrimaryScreen.Bounds.Width - Width, Location.Y);
+            if (Location.Y < 0)
+                Location = new Point(Location.X, 0);
+            if (Location.Y > Screen.PrimaryScreen.Bounds.Height - Height)
+                Location = new Point(Location.X, Screen.PrimaryScreen.Bounds.Height - Height);
+            Refresh();
+        }
 
         private void RightClickMenu_Extend_Click(object sender, EventArgs e)
         {
@@ -225,6 +238,7 @@ namespace DTProc
             }
             else
                 Label.Text = "文本区域已经到达最大";
+            CheckResetLocation();
         }
 
         private void RightClickMenu_Reduce_Click(object sender, EventArgs e)
@@ -238,6 +252,7 @@ namespace DTProc
             }
             else
                 Label.Text = "文本区域已经到达最小";
+            CheckResetLocation();
         }
 
         private void Label_MouseClick(object sender, MouseEventArgs e)
@@ -257,6 +272,7 @@ namespace DTProc
                     PictureMenu.Size = new Size(PictureMenu.Width, lastHeight);
                     Label.Size = new Size(Label.Width, lastHeight);
                 }
+                CheckResetLocation();
             }
         }
 
@@ -265,11 +281,11 @@ namespace DTProc
             e.Graphics.Clear(Label.BackColor);
             e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            StringFormat format = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
             GraphicsPath path = new GraphicsPath();
-            path.AddString(Label.Text, Label.Font.FontFamily, (int)Label.Font.Style, e.Graphics.DpiX * Label.Font.SizeInPoints / 75, e.ClipRectangle, format);
+            StringFormat format = new StringFormat() { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
             Pen pen = new Pen(Color.Blue);
             Brush brush = new SolidBrush(Color.White);
+            path.AddString(Label.Text, Label.Font.FontFamily, (int)Label.Font.Style, e.Graphics.DpiX * Label.Font.SizeInPoints / 75, e.ClipRectangle, format);
             e.Graphics.DrawPath(pen, path);
             e.Graphics.FillPath(brush, path);
             format.Dispose();
